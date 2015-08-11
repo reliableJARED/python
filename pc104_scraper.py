@@ -51,6 +51,7 @@ def webpage_to_soup():
     return url_list
 
 def product_links(url_list=[]):
+    #this function take all the urls found on the page and extracts only those of interest
     product = '/product_type/'
     ProductList =[]
     spec = '/specifications/'
@@ -83,8 +84,8 @@ def write_to_excel(ProductList=[], SpecList=[]):
 
     product_url_count = len(ProductList)
     spec_url_count = len(SpecList)
-    #save the excel sheet
-    print "file done"
+    #save the excel sheet, will be saved to the same directory as this code
+    print "file created"
     excel.save('elance_work.xls')
     #return count of urls for each page
     return product_url_count, spec_url_count
