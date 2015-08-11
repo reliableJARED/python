@@ -15,7 +15,7 @@ Technology
 
 code imports required:
 
-import BeautifulSoup
+import BeautifulSoup: http://www.crummy.com/software/BeautifulSoup/
 
 http://www.python-excel.org/
   import xlwt: https://pypi.python.org/pypi/xlwt 
