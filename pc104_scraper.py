@@ -88,6 +88,8 @@ def write_to_excel(ProductList=[], SpecList=[]):
     excel.save('elance_work.xls')
     #return count of urls for each page
     return product_url_count, spec_url_count
+    
+    
 def find_number_of_pages(url):
     #called from product_page_extract
     #used to determine number of product pages in catagroy
@@ -97,12 +99,28 @@ def find_number_of_pages(url):
     #turn HTML to soup
     soup = BeautifulSoup(page)
     
-    #navigate to the buttom of page to find what Page 1 of x is, we want x
-
-    count = soup.find_all('span','pages')
-    print count
+#navigate to the buttom of page to find what Page 1 of x is, we want x
+#if there is only one page of results there will be no <span class=pages'>
+    try:
+        count = str(soup.find('span','pages').text)
+    except AttributeError:
+        #str(soup.find('span','pages').text) throws error when only 1 page
+        count = 1
     
-    return count
+    # string split the text of the <span class='pages'>
+    if count ==1:
+        num_of_pages = 1
+    else:
+        #string split to isolate num_of_pages, count will look like:
+        #[<span class="pages">Page 1 of 2</span>]
+        count2 = count.split("Page 1 of ")
+        count3 = count2[1].split("</span")
+        num_of_pages = int(count3[0])
+        
+    #below is used for user to see progress
+    print "pages= " + str(num_of_pages) + ", type= " + str(type(num_of_pages))
+    #finally after all that retrun total pages for the product catagory
+    return num_of_pages
 
     
 def product_page_extract(product_url_count,spec_url_count):
@@ -114,19 +132,34 @@ def product_page_extract(product_url_count,spec_url_count):
     
     #copy() is from xlutils lets you write to existing workbook
     edit = copy(book)
+    #create instance of excel sheets that can be edited
     product_edit_sheet = edit.get_sheet(0)#first sheet, product
     spec_edit_sheet = edit.get_sheet(1)#second sheet, specification
+    #create headers for column 2
+    product_edit_sheet.write(0,1,"Num of Pages")
+    spec_edit_sheet.write(0,1,"Num of Pages")
     #Product pages
     for x in range(0,product_url_count):
-        #go down each row in excel,(remember row 1 is header) and pass url
+        #go down each row in excel,(remember row 1 is header) pass url to determine num of pages in that catagory
         page_count = find_number_of_pages(ProductSheet.cell_value(x+1,0))
+        #write the page count in column 2 or our 'elance_work.xls'
+        product_edit_sheet.write(x+1,1,page_count)
+        
+    #specification pages
+    for x in range(0,spec_url_count):
+        #go down each row in excel,(remember row 1 is header) pass url to determine num of pages in that catagory
+        page_count = find_number_of_pages(SpecSheet.cell_value(x+1,0))
+        #write the page count in column 2 or our 'elance_work.xls'
+        product_edit_sheet.write(x+1,1,page_count)
+    
+    edit.save('elance_work.xls')
         
         
 
     
        
        
-
+#the main sequence
 step1 = webpage_to_soup()
 step2,step3 = product_links(step1)
 step4,step5 = write_to_excel(step2,step3)
