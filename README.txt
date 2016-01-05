@@ -1,25 +1,9 @@
-An example of a simple scraper for python.  There are many ways to do this, this is our way.
+My name is Jared.  This repo is a collection of random python programming I've done in my spare time.  I run Ubuntu. Outside of the standard lib. I typically use
 
-Target: http://pc104.org/products/
+BeautifulSoup: http://www.crummy.com/software/BeautifulSoup/
 
-Information needs to be added to a spread sheet consisting of a variety of categories such as:
-Company Name
-Product Name
-Image of the product
-Type of Product
-Description
-Technical Details
-Specification
-PC Bus
-Technology
+requests: http://www.python-requests.org/en/latest/
 
-code imports required:
+Matplotlib and Numpy: http://scipy.org/
 
-import BeautifulSoup: http://www.crummy.com/software/BeautifulSoup/
-
-http://www.python-excel.org/
-  import xlwt: https://pypi.python.org/pypi/xlwt 
-  import xlrd: https://pypi.python.org/pypi/xlrd
-  import xlutils: https://pypi.python.org/pypi/xlutils
-
-import requests: http://www.python-requests.org/en/latest/
+OpenCV (not as straight forward, you could try this link.  Although I didn't use those instructions):http://www.pyimagesearch.com/2015/06/22/install-opencv-3-0-and-python-2-7-on-ubuntu/
