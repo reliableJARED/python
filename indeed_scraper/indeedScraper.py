@@ -9,6 +9,7 @@ import requests
 import random#used in user-agent selection
 
 """ List of Staffing Companies that are filtered out of search """
+#I keep adding as I find them
 staffing_companies = ['Foundation Staffing',\
                    'CUE Technoloties',\
                     'Sunrise Systems Inc',\
