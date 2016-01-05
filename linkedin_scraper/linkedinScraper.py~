@@ -8,7 +8,7 @@ import random
 import time
 
 class WebpageParser:
-    
+    # initialization
     def __init__(self):
         pass
 
